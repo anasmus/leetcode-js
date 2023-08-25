@@ -3,12 +3,28 @@
  * @return {boolean}
  */
 var isPalindrome = function (s) {
-    const sFilter = s.toLowerCase()
-        .split('')
-        .filter(char => char >= 'a' && char <= 'z' || char >= '0' && char <= '9')
-        .join('');
-    const sReverse = sFilter.split('').reverse().join('');
-    return sFilter === sReverse;
+    const isAlphaNumeric = (c) => (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9');
+    let start = 0;
+    let end = s.length - 1;
+    let startC;
+    let endC;
+    while (start <= end) {
+        startC = s[start].toLowerCase();
+        endC = s[end].toLowerCase();
+        if (isAlphaNumeric(startC)) {
+            if (isAlphaNumeric(endC)) {
+                if (startC !== endC) return false;
+                start++;
+                end--;
+            } else {
+                end--;
+            }
+        } else {
+            start++;
+        }
+    }
+
+    return true;
 };
 
 // Test
