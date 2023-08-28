@@ -4,24 +4,20 @@
  * @return {number[]}
  */
 var twoSum = function (numbers, target) {
-    const findNum = (low, high, value) => {
-        if (high === low) return null;
-        const mid = Math.floor((low + high) / 2);
-        const midNum = numbers[mid];
-        if (midNum === value) return mid;
-        if (value < midNum) return findNum(low, mid, value);
-        else return findNum(mid + 1, high, value);
-    };
-
-    let secondNum = 0;
-    let secondIndex = 0;
-    let length = numbers.length;
-    for (let i = 0; i < length; i++) {
-        secondNum = target - numbers[i];
-        secondIndex = findNum(i + 1, length, secondNum);
-        if (secondIndex) return [i + 1, secondIndex + 1];
+    let start = 0;
+    let end = numbers.length - 1;
+    let total;
+    while (start < end) {
+        total = numbers[start] + numbers[end];
+        if (total > target) {
+            end--;
+        } else if (total < target) {
+            start++;
+        } else {
+            return [start + 1, end + 1];
+        }
     }
-    return null;
+    return [0, 0];
 };
 
 // Test
